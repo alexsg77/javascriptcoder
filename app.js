@@ -14,7 +14,7 @@ while (opcionMenu != 3) {
             let destinos = prompt("contamos con los siguientes destinos disponibles elige el deseado (1. Bariloche, 2. El Bolson, 3. Villa La Angostura");
             if (destinos == "1") {
                 alert("Los pasajes a bariloche tiene un valor de 1000U$D");
-                eleccionBariloche = parseInt(prompt("elige si: (1. quiere comprarlos en 1 pago, 2. desea comprarlos en cuotas, 3.salir"));
+                eleccionBariloche = parseInt(prompt("elige si: (1. quiere comprarlos en 1 pago, 2. desea comprarlos en cuotas, 3. desea salir"));
                     if (eleccionBariloche == 1) {
                         alert(`"${nombreUsuario}, su compra por el valor de 1000U$D en un pago fue un éxito"`);
                     }
