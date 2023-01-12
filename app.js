@@ -25,14 +25,14 @@ const comprarBebidas = (listaDeBebidas) => {
 
     do {
         bebidaNombre = prompt('¿Qué bebida desea comprar?'+'\n\n'+listaDeBebidas.join('\n'))
-        bebidaCantidad = parseInt(prompt('¿Cuántos quieres comprar?'))
+        bebidaCantidad = parseInt(prompt('¿Cuántas quieres comprar?'))
 
         const bebida = bebidas.find(bebida => bebida.nombre.toLowerCase() === bebidaNombre.toLowerCase())
 
         if (bebida) {
             agregarAlCarrito(bebida, bebida.id, bebidaCantidad)
         } else {
-            alert('La bebida no se encuentra en el catálogo!')
+            alert('La bebida no se encuentra en nuestro catálogo!')
         }
 
         otraBebida = confirm('Desea agregar otra bebida?')
