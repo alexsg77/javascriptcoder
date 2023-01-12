@@ -1,13 +1,10 @@
-// Array para el carrito de compras
 const carrito = []
 
-// Ordenar bebidas de menor a mayor
 const ordenarMenorMayor = () => {
     bebidas.sort((a, b) => a.precio - b.precio)
     mostrarListaOrdenada()
 };
 
-// Ordenar bebidas de mayor a menor
 const ordenarMayorMenor = () => {
     bebidas.sort((a, b) => b.precio - a.precio)
     mostrarListaOrdenada()
