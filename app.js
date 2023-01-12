@@ -28,17 +28,17 @@ const comprarBebidas = (listaDeBebidas) => {
 
     do {
         bebidaNombre = prompt('¿Qué bebida desea comprar?'+'\n\n'+listaDeBebidas.join('\n'))
-        bebidaCantidad = parseInt(prompt('¿Cuántos queres comprar?'))
+        bebidaCantidad = parseInt(prompt('¿Cuántos quieres comprar?'))
 
         const bebida = bebidas.find(bebida => bebida.nombre.toLowerCase() === bebidaNombre.toLowerCase())
 
         if (bebida) {
             agregarAlCarrito(bebida, bebida.id, bebidaCantidad)
         } else {
-            alert('El bebida no se encuentra en el catálogo!')
+            alert('La bebida no se encuentra en el catálogo!')
         }
 
-        otraBebida = confirm('Desea agregar otro bebida?')
+        otraBebida = confirm('Desea agregar otra bebida?')
     } while (otraBebida);
 
     confirmarCompra()
@@ -74,13 +74,13 @@ const confirmarCompra = () => {
 
     const isCheckout = confirm('Checkout: '
         +'\n\n'+listaBebidas.join('\n')
-        +'\n\nPara continuar presione "Aceptar" sino "Cancelar" para eliminar un bebida del carrito'
+        +'\n\nPara continuar presione "Aceptar" sino "Cancelar" para eliminar una bebida del carrito de compras'
     )
 
     if (isCheckout) {
         finalizarCompra(listaBebidas)
     } else {
-        const nombreBebidaAEliminar = prompt('Ingrese el nombre del bebida a eliminar:')
+        const nombreBebidaAEliminar = prompt('Ingrese el nombre de la bebida a eliminar:')
         eliminarBebidaCarrito(nombreBebidaAEliminar)
     }
 };
@@ -88,16 +88,16 @@ const confirmarCompra = () => {
 const finalizarCompra = (listaBebidas) => {
     const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0)
     const precioTotal = carrito.reduce((acc, item) => acc + (item.cantidad * item.precio), 0)
-    alert('Detalle de su compra: '
+    alert('A continuación el detalle de su compra: '
         +'\n\n'+listaBebidas.join('\n')
         +'\n\nTotal de bebidas: '+cantidadTotal
         +'\n\nEl total de su compra es: '+precioTotal
-        +'\n\nGracias por su compra!'
+        +'\n\nMuchas gracias por la compra'
     )
 };
 
 const comprar = () => {
-    const bebidasBaratos = confirm('¿Querés ordenar la lista de bebidas de la más barata a la más cara?')
+    const bebidasBaratos = confirm('¿Desea ordenar la lista de bebidas de la más barata a la más cara?')
 
     if (bebidasBaratos) {
         ordenarMenorMayor()
