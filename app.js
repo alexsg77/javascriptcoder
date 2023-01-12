@@ -1,83 +1,110 @@
-alert("Bienvenido a Viajarg tu agencia de viajes");
-let nombreUsuario = prompt("Por favor ingrese su nombre");
-let opcionMenu = 0;
-let ofertas = `"${nombreUsuario}, actualmente contamos con 20% de descuento con la compra de dos pasajes comunicate al 1131056688 para saber más"`;
+// Array para el carrito de compras
+const carrito = []
 
-function mostrarOfertas(ofertas) {
-    alert(ofertas)
-} 
+// Ordenar bebidas de menor a mayor
+const ordenarMenorMayor = () => {
+    bebidas.sort((a, b) => a.precio - b.precio)
+    mostrarListaOrdenada()
+};
 
-while (opcionMenu != 3) {
-    opcionMenu = prompt(`"Estimado/a ${nombreUsuario} Elija la opción deseada. (1. Consultar destinos disponibles, 2.Consultar ofertas, 3. Salir"`);
-    switch(opcionMenu) {
-        case "1":
-            let destinos = prompt("contamos con los siguientes destinos disponibles elige el deseado (1. Bariloche, 2. El Bolson, 3. Villa La Angostura");
-            if (destinos == "1") {
-                alert("Los pasajes a bariloche tiene un valor de 1000U$D");
-                eleccionBariloche = parseInt(prompt("elige si: (1. quiere comprarlos en 1 pago, 2. desea comprarlos en cuotas, 3. desea salir"));
-                    if (eleccionBariloche == 1) {
-                        alert(`"${nombreUsuario}, su compra por el valor de 1000U$D en un pago fue un éxito"`);
-                    }
-                    if (eleccionBariloche == 2) {
-                        cuotasBariloche = parseInt(prompt("actualmente contamos con 3 cuotas quedando un valor de 1200U$D, 1). confirmar, 2) cancelar"));
-                        if (cuotasBariloche == 1) {
-                            alert(`"${nombreUsuario}, su compra en 3 cuotas por un valor de 1200U$D fue un éxito"`);
-                        }
-                        else {
-                            break;
-                        }
-                    }
-                    else {
-                        break;
-                    }
-            }        
-            if (destinos == 2){
-                alert("Los pasajes a El Bolson tiene un valor de 1200 U$D");
-                eleccionElBolson = parseInt(prompt("elige si: (1. quiere comprarlos en 1 pago, 2. desea comprarlos en cuotas, 3.salir"));
-                    if (eleccionElBolson == 1) {
-                        alert(`"${nombreUsuario}, su compra por el valor de 1200U$D en un pago fue un éxito"`);
-                    }
-                    if (eleccionElBolson == 2) {
-                        cuotasElBolson = parseInt(prompt("actualmente contamos con 3 cuotas quedando un valor de 1460U$D, 1). confirmar, 2) cancelar"));
-                        if (cuotasElBolson == 1) {
-                            alert(`"${nombreUsuario}, su compra en 3 cuotas por un valor de 1460U$D fue un éxito"`);
-                        }
-                        else {
-                            break;
-                        }
+// Ordenar bebidas de mayor a menor
+const ordenarMayorMenor = () => {
+    bebidas.sort((a, b) => b.precio - a.precio)
+    mostrarListaOrdenada()
+};
 
-                    }
-                    else {
-                        break;
-                    }
-            }    
-            if (destinos =="3"){
-                alert("Los pasajes a Villa La Angostura tiene un valor de 1300 U$D");
-                eleccionVillaAngostura = parseInt(prompt("elige si: (1. quiere comprarlos en 1 pago, 2. desea comprarlos en cuotas, 3.salir"));
-                    if (eleccionVillaAngostura == 1) {
-                        alert(`"${nombreUsuario}, su compra por el valor de 1300U$D en un pago fue un éxito"`);
-                    }
-                    if (eleccionVillaAngostura == 2) {
-                        cuotasVillaAngostura = parseInt(prompt("actualmente contamos con 3 cuotas quedando un valor de 1496U$D, 1). confirmar, 2) cancelar"));
-                        if (cuotasVillaAngostura == 1) {
-                            alert(`"${nombreUsuario}, su compra en 3 cuotas por un valor de 1496U$D fue un éxito"`);
-                        }
-                        else {
-                            break;
-                        }
+const mostrarListaOrdenada = () => {
+    const listaDeBebidas = bebidas.map(bebida => {
+        return '- '+bebida.nombre+' $'+bebida.precio
+    })
+    alert('Lista de precios:'+'\n\n'+listaDeBebidas.join('\n'))
+    comprarBebidas(listaDeBebidas)
+};
 
-                    }
-                    else {
-                        break;
-                    }
-            }
-            break;
-        case "2":
-            mostrarOfertas(ofertas);
-            break;
+const comprarBebidas = (listaDeBebidas) => {
+    let bebidaNombre = ''
+    let bebidaCantidad = 0
+    let otraBebida = false
 
-        case "3":
-            alert(`"Muchas gracias ${nombreUsuario} por utilizar nuestros servicios"`);
-            break;
+    do {
+        bebidaNombre = prompt('¿Qué bebida desea comprar?'+'\n\n'+listaDeBebidas.join('\n'))
+        bebidaCantidad = parseInt(prompt('¿Cuántos queres comprar?'))
+
+        const bebida = bebidas.find(bebida => bebida.nombre.toLowerCase() === bebidaNombre.toLowerCase())
+
+        if (bebida) {
+            agregarAlCarrito(bebida, bebida.id, bebidaCantidad)
+        } else {
+            alert('El bebida no se encuentra en el catálogo!')
+        }
+
+        otraBebida = confirm('Desea agregar otro bebida?')
+    } while (otraBebida);
+
+    confirmarCompra()
+};
+
+const agregarAlCarrito = (bebida, bebidaId, bebidaCantidad) => {
+    const bebidaRepetido = carrito.find(bebida => bebida.id === bebidaId)
+    if (!bebidaRepetido) {
+        bebida.cantidad += bebidaCantidad
+        carrito.push(bebida)
+    } else {
+        bebidaRepetido.cantidad += bebidaCantidad
     }
-}
+};
+
+const eliminarBebidaCarrito = (nombreBebidaAEliminar) => {
+    carrito.forEach((bebida, index) => {
+        if (bebida.nombre.toLowerCase() === nombreBebidaAEliminar.toLowerCase()) {
+            if (bebida.cantidad > 1) {
+                bebida.cantidad--
+            } else {
+                carrito.splice(index, 1)
+            }
+        }
+    })
+    confirmarCompra()
+};
+
+const confirmarCompra = () => {
+    const listaBebidas = carrito.map(bebida => {
+        return '- '+bebida.nombre+' | Cantidad: '+bebida.cantidad
+    })
+
+    const isCheckout = confirm('Checkout: '
+        +'\n\n'+listaBebidas.join('\n')
+        +'\n\nPara continuar presione "Aceptar" sino "Cancelar" para eliminar un bebida del carrito'
+    )
+
+    if (isCheckout) {
+        finalizarCompra(listaBebidas)
+    } else {
+        const nombreBebidaAEliminar = prompt('Ingrese el nombre del bebida a eliminar:')
+        eliminarBebidaCarrito(nombreBebidaAEliminar)
+    }
+};
+
+const finalizarCompra = (listaBebidas) => {
+    const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0)
+    const precioTotal = carrito.reduce((acc, item) => acc + (item.cantidad * item.precio), 0)
+    alert('Detalle de su compra: '
+        +'\n\n'+listaBebidas.join('\n')
+        +'\n\nTotal de bebidas: '+cantidadTotal
+        +'\n\nEl total de su compra es: '+precioTotal
+        +'\n\nGracias por su compra!'
+    )
+};
+
+const comprar = () => {
+    const bebidasBaratos = confirm('¿Querés ordenar la lista de bebidas de la más barata a la más cara?')
+
+    if (bebidasBaratos) {
+        ordenarMenorMayor()
+    } else {
+        ordenarMayorMenor()
+    }
+};
+
+
+comprar()
