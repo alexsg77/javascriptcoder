@@ -23,7 +23,7 @@ const productos =
     {
         id: 3,
         nombre: "Reloj Louis Vuitton",
-        tipo: "camisa",
+        tipo: "reloj",
         desc: "una descripcion de reloj",
         precio: 1300,
         imagen: './public/images/reloj3.jpg',
@@ -33,7 +33,7 @@ const productos =
     {
         id: 4,
         nombre: "Reloj Patek Philippe",
-        tipo: "pantalon",
+        tipo: "reloj",
         desc: "una descripcion de reloj",
         precio: 2000,
         imagen: './public/images/reloj4.jpg',
